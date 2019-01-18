@@ -1,0 +1,84 @@
+<div>
+    <nz-table
+        #editRowTable
+        nzBordered
+        [nzData]="dataSet"
+        (nzPageIndexChange)="requestData()"
+        >
+        <thead>
+          <tr>
+              <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+              <th>服务名称</th>
+              <th>服务地址</th>
+              <th>项目名称</th>
+              <th>读取超时</th>
+              <th>连接超时</th>
+              <th>服务器信息</th>
+              <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of editRowTable.data">
+              <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
+            <td>
+               <ng-container>
+                  {{data.aid}}
+                </ng-container>
+  
+            </td>
+            <td>
+              <ng-container >
+                  {{data.catid}}
+                </ng-container> 
+            </td>
+            <td>
+              <ng-container>
+                {{data.dateline}}
+              </ng-container>
+            </td>
+            <td>
+              <ng-container>
+                {{data.pic}}
+              </ng-container>
+
+            </td>
+            <td>
+                <ng-container>
+                {{data.title}}
+              </ng-container>
+            </td>
+            <td>
+                <ng-container>
+                {{data.username}}
+              </ng-container>
+            </td>
+            <td>
+                <div class="editable-row-operations">
+                  <ng-container >
+                    <a (click)="startEdit(data.key)">Edit</ a>
+                  </ng-container>
+                </div>
+              </td>
+      
+          </tr>
+        </tbody>
+      </nz-table>
+  
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      
+          <div>
+            <div style="margin-bottom: 16px;">
+              <nz-input-group nzAddOnBefore="读取超时">
+                <input type="text" nz-input [(ngModel)]="inputValue">
+              </nz-input-group>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <nz-input-group nzAddOnBefore="连接超时">
+                <input type="text" nz-input [(ngModel)]="inputValue1">
+              </nz-input-group>
+            </div>
+          </div>
+      </nz-modal>
+  
+  
+  </div>

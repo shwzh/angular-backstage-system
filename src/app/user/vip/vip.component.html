@@ -1,0 +1,53 @@
+<nz-table
+      #editRowTable
+      nzBordered
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzCurrentPageDataChange)="currentPageDataChange($event)"
+      (nzPageIndexChange)="requestData()"
+      (nzPageSizeChange)="refreshStatus()">
+      <thead>
+        <tr>
+          <th>服务名称</th>
+          <th>服务地址</th>
+          <th>项目名称</th>
+          <th>读取超时</th>
+          <th>连接超时</th>
+          <th>服务器信息</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of editRowTable.data">
+          <td>{{data.serviceName}}</td>
+          <td>{{data.serviceURI}}</td>
+          <td>{{data.serviceProject}}</td>
+          <td>
+              <ng-container *ngIf="!flg">
+                {{data.readTimeOut}}
+              </ng-container>
+              <ng-container *ngIf="flg">
+                  <input type="text" nz-input [(ngModel)]="data.flg" value="{{data.readTimeOut}}">
+                </ng-container>
+          </td>
+          <td>{{data.connectionTimeOut}}</td>
+          <td>{{data.serverInfo}}</td>
+          <td>
+            <div class="editable-row-operations">
+              <!-- <ng-container *ngIf="!editCache[data.key].edit"> -->
+                <a (click)="startEdit(data.serviceName)">编辑</a>
+              <!-- </ng-container> -->
+              <!-- <ng-container *ngIf="editCache[data.key].edit"> -->
+                <a (click)="saveEdit(data.key)">保存</a>
+                <!-- <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="cancelEdit(data.key)"> -->
+                  <a nz-popconfirm>取消</a>
+                <!-- </nz-popconfirm> -->
+              <!-- </ng-container> -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

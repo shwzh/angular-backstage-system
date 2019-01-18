@@ -1,0 +1,36 @@
+<nz-table
+      #rowSelectionTable
+      [nzData]="data"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzCurrentPageDataChange)="currentPageDataChange($event)"
+      (nzPageIndexChange)="requestData()"
+      (nzPageSizeChange)="refreshStatus()">
+      <thead>
+        <tr>
+          <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+          <th>服务名称</th>
+          <th>服务地址</th>
+          <th>项目名称</th>
+          <th>读取超时</th>
+          <th>连接超时</th>
+          <th>服务器信息</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+          <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
+          <td>{{data.serviceName}}</td>
+          <td>{{data.serviceURI}}</td>
+          <td>{{data.serviceProject}}</td>
+          <td>{{data.readTimeOut}}</td>
+          <td>{{data.connectionTimeOut}}</td>
+          <td>{{data.serverInfo}}</td>
+          <td><a routerLink="/user/add" routerLinkActive="active">
+            <button nz-button nzType="primary">编辑</button></a></td>
+        </tr>
+      </tbody>
+    </nz-table>

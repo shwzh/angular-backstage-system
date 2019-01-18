@@ -1,0 +1,97 @@
+<div class="dv">
+    <span>Server Info:</span>&nbsp;&nbsp;
+    <input type="checkbox" value="DEV01"> DEV01&nbsp;&nbsp;
+    <input type="checkbox" value="DEV02"> DEV02&nbsp;&nbsp;
+    <input type="checkbox" value="DEV03"> DEV03&nbsp;&nbsp;
+    <input type="checkbox" value="DEV04"> DEV04&nbsp;&nbsp;
+    <button style="">Search</button>
+</div>
+<nz-table
+class="data—table"
+#editRowTable
+nzBordered
+[nzData]="dataSet">
+<!-- [nzPageSize]=10000 -->
+<thead>
+  <tr>
+      <th width="8%" style="text-align:center">编号</th>
+      <th width="15%" style="text-align:center">服务名称</th>
+      <th width="25%" style="text-align:center">服务地址</th>
+      <th width="15%" style="text-align:center">项目名称</th>
+      <th width="10%" style="text-align:center">读取超时</th>
+      <th width="10%" style="text-align:center">连接超时</th>
+      <th width="10%" style="text-align:center">服务器信息</th>
+      <th width="10%" style="text-align:center">操作</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let data of editRowTable.data; let i = index">
+    <td>{{i+1}}</td>
+    <td>
+      <!-- <div class="editable-cell">
+        <div class="editable-cell-text-wrapper">
+          <ng-container *ngIf="!editCache[data.mainKey].edit"> -->
+              {{data.serviceName}}
+          <!-- </ng-container>
+          <ng-container *ngIf="editCache[data.mainKey].edit">
+            <input type="text" nz-input [(ngModel)]="editCache[data.mainKey].data.serviceName">
+          </ng-container>
+        </div>
+      </div> -->
+    </td>
+    <td>
+      <!-- <ng-container *ngIf="!editCache[data.mainKey].edit"> -->
+          {{data.serviceURI}}
+      <!-- </ng-container>
+      <ng-container *ngIf="editCache[data.mainKey].edit">
+        <input type="text" nz-input [(ngModel)]="editCache[data.mainKey].data.serviceURI">
+      </ng-container> -->
+    </td>
+    <td>
+      <!-- <ng-container *ngIf="!editCache[data.mainKey].edit"> -->
+          {{data.serviceProject}}
+      <!-- </ng-container>
+      <ng-container *ngIf="editCache[data.mainKey].edit">
+        <input type="text" nz-input [(ngModel)]="editCache[data.mainKey].data.serviceProject">
+      </ng-container> -->
+    </td>
+    <td class="jz">
+        <ng-container *ngIf="!editCache[data.mainKey].edit">
+            {{data.readTimeOut}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.mainKey].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.mainKey].data.readTimeOut">
+        </ng-container>
+      </td>
+      <td class="jz">
+          <ng-container *ngIf="!editCache[data.mainKey].edit">
+              {{data.connectionTimeOut}}
+          </ng-container>
+          <ng-container *ngIf="editCache[data.mainKey].edit">
+            <input type="text" nz-input [(ngModel)]="editCache[data.mainKey].data.connectionTimeOut">
+          </ng-container>
+        </td>
+        <td class="jz">
+            <!-- <ng-container *ngIf="!editCache[data.mainKey].edit"> -->
+                {{data.serverInfo}}
+            <!-- </ng-container>
+            <ng-container *ngIf="editCache[data.mainKey].edit">
+              <input type="text" nz-input [(ngModel)]="editCache[data.mainKey].data.serverInfo">
+            </ng-container> -->
+        </td>
+    <td> 
+      <div class="editable-row-operations">
+        <ng-container *ngIf="!editCache[data.mainKey].edit">
+          <a (click)="startEdit(data.mainKey)">编辑</a>
+        </ng-container>
+        <ng-container *ngIf="editCache[data.mainKey].edit">
+          <a (click)="saveEdit(data.mainKey)">保存</a>&nbsp;
+          <nz-popconfirm [nzTitle]="'确定取消吗?'" (nzOnConfirm)="cancelEdit(data.mainKey)">
+            <a nz-popconfirm>取消</a>  
+          </nz-popconfirm>
+        </ng-container>
+      </div>
+    </td>
+  </tr>
+</tbody>
+</nz-table> 
