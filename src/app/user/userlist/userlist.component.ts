@@ -83,7 +83,7 @@ export class UserlistComponent implements OnInit {
 
   sendMsg(mainKey: any) {
     const index = this.dataSet.findIndex(item => item.mainKey === mainKey);
-    console.log(index, 'llllllll')
+    console.log(index, 'llllllll');
     const before = this.dataSet[ index ];
     const after = this.editCache[ mainKey ].data;
 
