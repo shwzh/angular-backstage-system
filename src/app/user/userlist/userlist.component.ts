@@ -12,6 +12,7 @@ import { NzAlertModule } from 'ng-zorro-antd';
   templateUrl: './userlist.component.html',
   styleUrls: [
     './userlist.component.css',
+    '../../../bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css',
   ]
 })
 
