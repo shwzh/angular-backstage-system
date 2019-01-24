@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClientModule, HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse,  } from '@angular/common/http';
 import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
@@ -12,7 +13,6 @@ import { NzAlertModule } from 'ng-zorro-antd';
   templateUrl: './userlist.component.html',
   styleUrls: [
     './userlist.component.css',
-    '../../../bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css',
   ]
 })
 
@@ -21,7 +21,23 @@ export class UserlistComponent implements OnInit {
   editCache = {};
   dataSet = [];
   loading = false;
+  checkOptionsOne = [
+    { label: 'dev01', value: 'dev01', checked: false },
+    { label: 'dev02', value: 'dev02', checked: false },
+    { label: 'dev03', value: 'dev03', checked: false },
+    { label: 'dev04', value: 'dev04', checked: false },
+  ];
 
+  searchData() {
+    let arr = this.checkOptionsOne.filter(item => {
+      return item.checked;
+    });
+    console.log(arr);
+    this.requestData(arr);
+  }
+  log(value: string[]): void {
+    console.log(value);
+  }
   startEdit(serviceName: string): void {
     this.editCache[ serviceName ].edit = true;
   }
@@ -69,7 +85,7 @@ export class UserlistComponent implements OnInit {
 
   constructor(public httpclient: HttpClient) { }
 
-  requestData() {
+  requestData(val) {
     this.loading = true;
     const api = 'http://10.203.97.101:8080/osbweb/rest/projects?server=PTD01';
     // const api = 'http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1';
