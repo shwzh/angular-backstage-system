@@ -32,11 +32,11 @@ export class UserlistComponent implements OnInit {
     let arr = this.checkOptionsOne.filter(item => {
       return item.checked;
     });
-    console.log(arr);
+    // console.log(arr);
     this.requestData(arr);
   }
   log(value: string[]): void {
-    console.log(value);
+    // console.log(value);
   }
   startEdit(serviceName: string): void {
     this.editCache[ serviceName ].edit = true;
@@ -88,6 +88,16 @@ export class UserlistComponent implements OnInit {
   requestData(val) {
     this.loading = true;
     const api = 'http://10.203.97.101:8080/osbweb/rest/projects?server=PTD01';
+    let datas = '';
+    val.forEach(item => {
+      if (item.label) {
+        datas += item.label + '-';
+      }
+    });
+    datas = (datas.substring(datas.length - 1) === '-') ? datas.substring(0, datas.length - 1) : datas;
+    console.log(datas, 'pppppp');
+    // datas 是要传过去的参数
+
     // const api = 'http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1';
     // this.httpclient.get(api).pipe(catchError(this.handleError));
     this.httpclient.get(api).subscribe((response: any) => {
